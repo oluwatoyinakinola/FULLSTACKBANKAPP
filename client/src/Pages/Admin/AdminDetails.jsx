@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AdminDetails = () => {
   const [adminData, setAdminData] = useState({});
@@ -8,7 +9,7 @@ const AdminDetails = () => {
   useEffect(() => {
     const fetchAdminData = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/admin/details');
+        const response = await axios.get('http://localhost:4500/api/admin/details');
         setAdminData(response.data);
         setLoading(false);
       } catch (error) {
@@ -30,9 +31,9 @@ const AdminDetails = () => {
             <h3>Welcome, {adminData.username}</h3>
             <p>Email: {adminData.email}</p>
             <p>Role: {adminData.role}</p>
-            {/* Display other admin-related information as needed */}
+            
           </div>
-          {/* Add additional components and functionality for the admin dashboard */}
+          
         </div>
       )}
     </div>

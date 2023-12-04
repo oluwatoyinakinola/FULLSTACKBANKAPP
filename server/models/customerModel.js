@@ -26,6 +26,7 @@ const customerSchema = new mongoose.Schema({
     default: 0,
   },
   
+  
 });
 
 const Customer = mongoose.model('Customer', customerSchema);

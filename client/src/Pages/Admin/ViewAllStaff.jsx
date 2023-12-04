@@ -7,10 +7,10 @@ const ViewAllStaff = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Create an async function to fetch customer data
+    
     const fetchStaffData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/staff/listall');
+        const response = await fetch('http://localhost:4500/api/staff/listall');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -23,7 +23,7 @@ const ViewAllStaff = () => {
       }
     };
 
-    // Call the async function
+
     fetchStaffData();
   }, []);
 

@@ -11,8 +11,7 @@ const StaffLoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Send a POST request to authenticate staff/banker
-    // Replace 'YOUR_API_ENDPOINT' with your actual endpoint
+   
     const response = await fetch('YOUR_API_ENDPOINT', {
       method: 'POST',
       headers: {
@@ -22,10 +21,14 @@ const StaffLoginPage = () => {
     });
 
     if (response.status === 200) {
+
       // Authentication successful, redirect to staff dashboard
+
       history.push('/staff/dashboard');
     } else {
+
       // Authentication failed, handle error
+      
       console.log('Login failed');
     }
   };

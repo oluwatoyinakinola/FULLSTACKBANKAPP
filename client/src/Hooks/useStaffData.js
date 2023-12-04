@@ -8,7 +8,7 @@ const useStaffData = () => {
   useEffect(() => {
     const fetchStaffData = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/staff/listall');
+        const response = await axios.get('http://localhost:4500/api/staff/listall');
         setStaffData(response.data);
         setLoading(false);
       } catch (error) {

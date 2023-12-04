@@ -7,37 +7,43 @@ const createStaff = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // Check if the required fields are provided
+    // Checking if the required fields are provided
+
     if (!name || !email || !password) {
       return res.status(400).json({ error: 'Please provide name, email, and password' });
     }
 
-    // Check password length
+    // Checking password length
+
     if (password.length < 8) {
       return res.status(400).json({ error: 'Password must be at least 8 characters long' });
     }
 
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10); // You can adjust the salt rounds as needed
+    // hashing the password
 
-    // Create a new staff member
+    const hashedPassword = await bcrypt.hash(password, 10); 
+
+    // creating a new staff member
+
     const staff = new Staff({
       name,
       email,
-      password: hashedPassword, // Fixed the property name here
+      password: hashedPassword, 
     });
 
-    // Save the staff member to the database
+    // saving the staff member to the database
+
     const newStaff = await staff.save();
 
     res.status(201).json(newStaff);
   } catch (error) {
-    console.error(error); // Log the error for debugging
+    console.error(error); 
     res.status(500).json({ error: 'Failed to create staff member' });
   }
 };
 
 // List all staff members
+
 const listAllStaff = async (req, res) => {
   try {
     const staffMembers = await Staff.find();
@@ -47,13 +53,15 @@ const listAllStaff = async (req, res) => {
   }
 };
 
-// Update staff details by email
+// updating staff details by email
+
 const updateStaffByEmail = async (req, res) => {
   try {
-    const { email } = req.params; // Extract email from the request parameters
+    const { email } = req.params; 
     const { name, password } = req.body;
 
-    // Find the staff member by email and update their details
+    // finding staff member by email and update their details
+
     const updatedStaff = await Staff.findOneAndUpdate(
       { email },
       { name, password },
@@ -69,9 +77,27 @@ const updateStaffByEmail = async (req, res) => {
     res.status(500).json({ error: 'Failed to update staff member' });
   }
 };
+// getting an admin by ID
+
+const getStaffbyEmail = async (req, res) => {
+  try {
+    const staffemail = req.params.email; 
+    const staff = await Staff.findOne({ staffemail });
+
+    if (staff) {
+      res.json(staff);
+    } else {
+      res.status(404).json({ error: "Staff not found" });
+    }
+  } catch (error) {
+    console.error("Error getting Staff user by Email:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
 
 module.exports = {
   createStaff,
   listAllStaff,
-  updateStaffByEmail
+  updateStaffByEmail,
+  getStaffbyEmail,
 };

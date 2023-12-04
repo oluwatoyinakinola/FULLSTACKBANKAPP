@@ -1,35 +1,43 @@
 const express = require("express");
 const router = express.Router();
 const Admin = require("../models/adminModel");
+const bcrypt = require('bcrypt');
 
-// Create a new admin
+// Creating a new admin
+
 const creatnewadmin = async (req, res) => {
   try {
     const { id, name, email, password } = req.body;
 
-    // Check password length
-    if (password.length < 8) {
+    // Checking the password length
+
+    if (req.body.password.length < 8) {
       return res.status(400).json({ error: 'Password must be at least 8 characters long' });
     }
 
-    // Create an instance of the Admin model with data from the request body
+    // Creating an instance of the Admin model with data from the request body
+
+    const hashedPassword = await bcrypt.hash(req.body.password, 10); 
+
     const admin = new Admin({
       id: req.body.id,
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password,
+      password: hashedPassword,
     });
 
     // Save the admin to the database
+
     const savedAdmin = await admin.save();
 
-    res.status(201).json(savedAdmin); // Respond with the saved admin data
+    res.status(201).json(savedAdmin); 
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };
 
-// Get a list of all admins
+// Getting a list of all admins
+
 const listadmins = async (req, res) => {
   try {
     const admins = await Admin.find({});
@@ -40,10 +48,11 @@ const listadmins = async (req, res) => {
   }
 };
 
-// Get an admin by ID
+// Getting an admin by ID
+
 const getadminbyID = async (req, res) => {
   try {
-    const adminId = req.params.id; // Get the ID parameter from the request
+    const adminId = req.params.id; 
     const admin = await Admin.findOne({ id: adminId });
 
     if (admin) {
@@ -58,10 +67,11 @@ const getadminbyID = async (req, res) => {
 };
 
 
-// Get an admin by ID
+// Getting an admin by id
+
 const getAdminbyEmail = async (req, res) => {
   try {
-    const adminemail = req.params.email; // Get the ID parameter from the request
+    const adminemail = req.params.email; 
     const admin = await Admin.findOne({ adminemail });
 
     if (admin) {
@@ -75,7 +85,8 @@ const getAdminbyEmail = async (req, res) => {
   }
 };
 
-// Update an admin by ID
+// updating an admin by id
+
 const upadteadminbyid = async (req, res) => {
   try {
     const admin = await Admin.findByIdAndUpdate(req.params.id, req.body, {
@@ -90,7 +101,8 @@ const upadteadminbyid = async (req, res) => {
   }
 };
 
-// Delete an admin by ID
+// deleting an admin by id
+
 const deleteadminbyID = async (req, res) => {
   try {
     const admin = await Admin.findByIdAndRemove(req.params.id);
@@ -102,6 +114,8 @@ const deleteadminbyID = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+
 
 module.exports = {
   creatnewadmin,

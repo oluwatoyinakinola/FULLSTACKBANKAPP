@@ -8,7 +8,7 @@ const useAdminData = () => {
   useEffect(() => {
     const fetchAdminData = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/admin/listall');
+        const response = await axios.get('http://localhost:4500/api/admin/listall');
         setAdminData(response.data);
         setLoading(false);
       } catch (error) {

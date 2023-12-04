@@ -8,7 +8,8 @@ const LoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Send a POST request to your server to authenticate the user
+    // sending a POST request to your server to authenticate the user
+    
     const response = await fetch('/api/customer/login', {
       method: 'POST',
       headers: {
@@ -18,10 +19,11 @@ const LoginForm = () => {
     });
 
     if (response.status === 200) {
-      // Authentication successful, you can redirect the user to their dashboard or perform other actions
+      // Authentication successful and redirecting the user to their dashboard 
+
       console.log('Login successful');
     } else {
-      // Authentication failed, handle error
+      
       console.log('Login failed');
     }
   };

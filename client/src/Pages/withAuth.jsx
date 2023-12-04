@@ -6,14 +6,14 @@ const withAuth = (WrappedComponent) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-      // Check if the session is null (or any other condition)
-      if (!sessionStorage.getItem('userEmail')) {
-        // If the session is null, navigate to a login page or another page
+      
+      if (!sessionStorage.getItem('email')) {
+        
         navigate('/login');
       }
     }, [navigate]);
 
-    // Render the wrapped component
+    
     return <WrappedComponent {...props} />;
   };
 };

@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const CustomerDetailsForm = () => {
   const [accountNumber, setAccountNumber] = useState('');
   const [balance, setBalance] = useState(0);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleCustomerDetails = async (e) => {
     e.preventDefault();
 
-    // Send a POST request to your server to save customer details
-    const response = await fetch('http://localhost:4000/api/customer/details', {
+    // sending a POST request to your server to save customer details
+
+    const response = await fetch('http://localhost:4500/api/customer/listall', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -20,10 +22,8 @@ const CustomerDetailsForm = () => {
     });
 
     if (response.status === 201) {
-      // Details saved successfully, you can redirect the user to the login page or perform other actions
-      history.push('/customer/login');
+      navigate('/customer/login');
     } else {
-      // Saving details failed, handle error
       console.log('Details saving failed');
     }
   };
@@ -32,7 +32,6 @@ const CustomerDetailsForm = () => {
     <div>
       <h2>Customer Details</h2>
       <form onSubmit={handleCustomerDetails}>
-        
         <div>
           <label htmlFor="accountNumber">Account Number:</label>
           <input
@@ -56,8 +55,12 @@ const CustomerDetailsForm = () => {
         <button type="submit">Save Details</button>
       </form>
 
-      {/* Add a link to CreateTransactionForm */}
-      <Link to="/customer/create-transaction">Create a Transaction</Link>
+      <Link to="/createtransaction">Create a Transaction</Link>
+
+       <br/>
+
+      <Link to="/customer">Back to Customer Dashboard</Link>
+
     </div>
   );
 };

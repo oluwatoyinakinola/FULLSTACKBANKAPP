@@ -2,7 +2,7 @@
 
 function loggerMiddleware(req, res, next) {
     console.log(`Received ${req.method} request at ${req.url} request body ${req.body}`);
-    next(); // Move on to the next middleware or route
+    next(); 
   }
   
   module.exports = loggerMiddleware;

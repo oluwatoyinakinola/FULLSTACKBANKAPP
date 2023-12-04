@@ -22,13 +22,15 @@ const AdminLoginPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:4000/api/admin/login', formData);
+      const response = await axios.post('http://localhost:4500/api/admin/login', formData);
 
       if (response.status === 200) {
-        // Admin login successful, redirect to the admin dashboard
+
+        // Admin login successful, redirecting to the admin dashboard
+
         history.push('/admin/dashboard');
       } else {
-        // Admin login failed, handle the error (display a message, etc.)
+       
         console.error('Admin login failed');
       }
     } catch (error) {

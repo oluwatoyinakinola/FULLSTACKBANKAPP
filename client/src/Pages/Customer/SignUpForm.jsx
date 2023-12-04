@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
-import { createCustomer } from '../../Utils/apiCalls'; // Import only createCustomer
-
+import { createCustomer } from '../../Utils/apiCalls'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router';
 
 const SignUpForm = () => {
-  const [name, setName] = useState('');
+  const [Name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(''); 
+  const navigate = useNavigate()
 
   const handleCreation = async (e) => {
     e.preventDefault();
     try {
       const customerData = {
-        name: name,
+        name: Name,
         email: email,
         password: password,
-        // You can set the userType here
+      
       };
 
       const response = await createCustomer(customerData);
@@ -26,12 +27,14 @@ const SignUpForm = () => {
       if (response.error) {
         setError(response.error);
       } else {
-       // Set the success message and reset the form
-        setSuccessMessage('Customer Saved Successfully!!!');
+
+       // Setting the success message and reset the form
+
+        setSuccessMessage('Customer Saved Successfully !!!');
         setName('');
         setEmail('');
         setPassword('');
-       
+        navigate("/");
       }
     } catch (error) {
       console.error(error);
@@ -40,19 +43,21 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5" style={{ background: 'steelblue', padding: '20px', color: "gold" }}>
       <h2>Customer Sign Up/Create</h2>
       {error && <div className="alert alert-danger">{error}</div>}
       {successMessage && <div className="alert alert-success">{successMessage}</div>}
       <form onSubmit={handleCreation}>
+
         <div className="mb-3">
+
           <label htmlFor="Name" className="form-label">
             Name:
           </label>
           <input
             type="text"
             id="Name"
-            value={name}
+            value={Name}
             onChange={(e) => setName(e.target.value)}
             className="form-control"
             required
@@ -85,7 +90,7 @@ const SignUpForm = () => {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-danger">
           Sign Up
         </button>
       </form>

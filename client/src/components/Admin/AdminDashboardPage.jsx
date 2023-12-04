@@ -1,32 +1,37 @@
 import React from 'react';
-import useAdminData from '../../Hooks/useAdminData';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
+import { Container, Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-
-function AdminDashboardPage() {
-  const { adminData, loading } = useAdminData();
-
-  const containerStyle = {
-    backgroundColor: 'steelblue',
-    padding: '20px', 
-  };
-
-  if (loading) {
-    return <div>Loading admin data...</div>;
-  }
-
+const AdminDashboard = () => {
   return (
-    <div className="container mt-5" style={containerStyle}>
-      <h2>Admin Dashboard</h2>
-      <div>
-        <h3>Welcome, {adminData.username}</h3>
-        <p>Email: {adminData.email}</p>
-        <p>Role: {adminData.role}</p>
-        
-      </div>
-      
-    </div>
-  );
-}
+    <Container fluid className="d-flex align-items-center justify-content-center" style={{ background: 'lightblue', minHeight: '100vh' , width: '210vh' }}>
+     
+      <div className="text-center">
 
-export default AdminDashboardPage;
+      <h1>Admin Dashboard</h1>
+      <Link to="/" className="btn btn-primary">BACK TO HOMEPAGE</Link>
+      <br />
+      <br />
+      <Link to="../viewCustomers" className="btn btn-primary">View Customers</Link>
+      <br />
+      <br />
+      <Link to="../Createcustomer" className="btn btn-primary">Create Customers</Link>
+      <br />
+      <br />
+      <Link to="../createnewstaff" className="btn btn-primary">Create Staff</Link>
+      <br />
+      <br />
+      <Link to="../createnewadmin" className="btn btn-primary">Create Admin</Link>
+      <br />
+      <br />
+    
+      <Link to="../createtransaction" className="btn btn-primary">Transfers</Link>
+      <br />
+      <br />
+      </div>
+    </Container>
+  );
+};
+
+export default AdminDashboard;

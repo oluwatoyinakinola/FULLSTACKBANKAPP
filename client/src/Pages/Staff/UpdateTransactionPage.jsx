@@ -1,16 +1,34 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
 
 const UpdateTransactionPage = () => {
   const [customerId, setCustomerId] = useState('');
   const [amount, setAmount] = useState('');
 
+  const navigate = useNavigate();
+
   const handleUpdateTransaction = async (e) => {
     e.preventDefault();
-
-    // Send a POST request to update customer transactions
-    // Implement the logic to update the customer's transaction here
-    // You may need to call your API endpoint
+    try {
+      
+      const response = await axios.post('http://localhost:4500/api/customer/updatetransaction', {
+        customerId,
+        amount,
+      });
+  
+      if (response.status === 200) {
+        console.log('Transaction updated successfully:', response.data);
+      
+      } else {
+        console.error('Failed to update transaction');
+      
+      }
+    } catch (error) {
+      console.error('Error updating transaction:', error);
+      
+    }
+    
   };
 
   return (

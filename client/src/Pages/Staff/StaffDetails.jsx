@@ -1,11 +1,13 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const StaffDetails = () => {
-  // Implement staff details and account history display logic here
+  // Implementing staff details and account history display logic
+  
   return (
     <div>
       <h1>Staff/Banker Details</h1>
-      {/* Display staff details and customer account history */}
+      
     </div>
   );
 };

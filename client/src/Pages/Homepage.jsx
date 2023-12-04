@@ -2,64 +2,46 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import withAuth from './withAuth';
+import backgroundImage from "@/images/1.jpg";
+import "@/App.css";
+import {  Container, Navbar, Nav , Button} from 'react-bootstrap';
 
-const homepageStyle = {
-  backgroundColor: 'Chartreuse', 
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  margin: 0, 
-  padding: "100px", 
-  height: '30vh',
-  width: '100%',
-};
 
-const h1Style = {
-  fontWeight: 'bold',
-  fontSize: '44px',
-};
 
 const Homepage = () => {
+
   return (
-    <div style={homepageStyle}>
-    <div className="container mt-5 sidebar"  >
-      <h1 style={h1Style}>Welcome to the Bank Application</h1>
-      <div className="mt-4">
-        <Link to="/admin" className="btn btn-primary mx-2">
-          Admin Dashboard
-        </Link>
-        <Link to="/customer" className="btn btn-primary mx-2">
-          Customer Dashboard
-        </Link>
-        <Link to="/staff" className="btn btn-primary mx-2">
-          Staff/Banker Dashboard
-        </Link>
-        <Link to="./login" className="btn btn-primary mx-2">
-         Login Here
-        </Link>
-       </div>
+
+    <Container fluid className="d-flex align-items-stretch homepage-container p-0" style={{ backgroundImage: `url(${backgroundImage})`, 
+    height: '160vh' , width: '1500px', backgroundSize: 'cover' }}>
+
+    <div className="text-center w-100">
+       
+    
+    <h1 className="text-info mt-5" style={{ fontSize: '4rem', fontWeight: 'bold' }}>WELCOME TO BANK APPLICATION</h1>
+        
+        <Navbar bg="primary" variant="dark" expand="lg"  className="position-absolute top-50 start-50 translate-middle p-3">
+
+          
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ml-auto">
+              <Nav.Link as={Link} to="/admin" className="text-warning text-decoration-underline cursor-pointer" style={{ fontSize: '1.22rem', fontWeight: 'bold' }}>Admin Dashboard</Nav.Link>
+              <Nav.Link as={Link} to="/customer" className="text-warning  text-decoration-underline cursor-pointer" style={{ fontSize: '1.22rem', fontWeight: 'bold' }}>Customer Dashboard</Nav.Link>
+              <Nav.Link as={Link} to="/staff" className="text-warning text-decoration-underline cursor-pointer" style={{ fontSize: '1.22rem', fontWeight: 'bold' }}>Staff/Banker Dashboard</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+        
+        <div className="mt-4">
+          <Link to="./login" className="position-absolute bottom-0 start-50 translate-middle-x mb-4" style={{ fontSize: '2rem', fontWeight: 'bold' }} >
+            Login Here
+          </Link>
+        </div>
       </div>
-    </div>
+    </Container>
   );
 };
-const NotVerified = () => {
-  return (
-    <div className="container mt-5 sidebar">
-      <h1>Welcome to the Bank Application</h1>
-      <div className="mt-4">
-     
-        <Link to="./login" className="btn btn-primary mx-2">
-         Login Here
-        </Link>
-        {/* Add more links or buttons as needed */}
-      </div>
-    </div>
-  );
 
 
-};
-
-export default  withAuth(Homepage);
-
-
+export default withAuth(Homepage);

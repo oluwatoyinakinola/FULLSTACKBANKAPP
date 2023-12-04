@@ -8,8 +8,6 @@ const staffRoutes = require('./routes/staffRoutes');
 const transactionRoutes = require('./routes/transactionRoutes');
 const loggerMiddleware = require('./middleware/loggerMiddleware'); 
 const userRoutes = require('./routes/userRoutes');
-const swaggerUi = require('swagger-ui-express'); 
-const swaggerSpec = require('./swaggerOptions'); 
 const cors = require('cors');
 
 
@@ -41,10 +39,10 @@ app.use(express.json());
 // Apply the logger middleware to all routes
 app.use(loggerMiddleware);
 
-// Setting up Swagger UI
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// Use the routes for each model
+
+// Using the routes for each model
+
 app.use('/api/admin', adminRoutes);
 app.use('/api/customer', customerRoutes);
 app.use('/api/staff', staffRoutes);
@@ -55,7 +53,8 @@ app.use('/api/login', loginRoutes);
 
 
 // Starting the server
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4500;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+  
 });

@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 const LoginFormPage = () => {
- 
 
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -17,6 +16,8 @@ const LoginFormPage = () => {
 
   const [error, setError] = useState(null);
 
+
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -24,13 +25,13 @@ const LoginFormPage = () => {
     });
   };
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e) => 
+  {
     e.preventDefault();
     try {
 
       const maxLength = 10; 
-  
-    
+
       const password = formData.password;
       const isPasswordValid = (password) => {
         return password.length <= maxLength;
@@ -41,58 +42,59 @@ const LoginFormPage = () => {
      
         console.log("Password is too short.");
       }
-      // Authenticate user
-      const response = await apiService.authenticateUser(
-        formData.email,
-        formData.password,
-        formData.userType
-      );
 
-      if (response.error) {
+      console.log('Form Data', formData.email);
+      console.log('Form Data', formData.password);
+      console.log('Form Data', formData.userType);
+
+      // Authenticating user
+
+      console.log('Calling........ Authenticate user');
+
+   
+
+      const response = await apiService.authenticateUser(
+          formData.email,
+          formData.password,
+          formData.userType
+        );
+        console.log('Authenticate user Call Completed');
+      
+      if (response.error) 
+      {
+        console.log('Error --> ', response.error);
         setError(response.error);
-      } else {
+        
+      }
+      else 
+      {
         setError(null);
 
-        // Store user email and userType in session storage
-        // sessionStorage.setItem('userEmail', formData.email);
-        // sessionStorage.setItem('userType', formData.userType);
 
-        // Get admin , staff or customer details based on userType
-        let userDetailsResponse;
+        console.log('Page Redirect.....');
+        console.log('response data...', response.data);
 
-        switch (formData.userType) {
-          case 'admin':
-            userDetailsResponse = await apiService.getadmindetails(formData.email);
-            break;
-          case 'customer':
-            userDetailsResponse = await apiService.getcustomerdetails(formData.email);
-            break;
-          case 'staff':
-            userDetailsResponse = await apiService.getStaffDetails(formData.email);
-            break;
-          default:
-            setError('Invalid userType');
-            return;
-        }
+        sessionStorage.setItem('userType', formData.userType);
+        sessionStorage.setItem('email', response.data.email);
+        sessionStorage.setItem('accountNumber', response.data.accountNumber);
+        sessionStorage.setItem('accountbalance', response.data.balance);
+      
+          if(formData.userType == 'admin'){
+            navigate('/admin');
+          }else if (formData.userType == 'customer'){
+            navigate('/customer');
+          }else if (formData.userType == 'staff'){
+            navigate('/staff');
+          }
 
-        if (userDetailsResponse.error) {
-          setError(userDetailsResponse.error);
-        } else {
-
-          useEffect(() => {
-
-            // Store admin or customer details in session storage
-            sessionStorage.setItem('userDetails', JSON.stringify(userDetailsResponse));
-            navigate('../');
+        
+  
 
 
-          }, [navigate]);
-
-
-        }
       }
-    } catch (error) {
-      console.error(error);
+    } 
+    catch (error) 
+    {
       setError('Internal server error');
     }
   };

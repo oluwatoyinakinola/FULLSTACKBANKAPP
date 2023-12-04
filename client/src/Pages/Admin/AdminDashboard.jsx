@@ -1,37 +1,48 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import 'mdb-react-ui-kit/dist/css/mdb.min.css'; 
+import { Container, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
 
-
-const linkStyle = {
-  textDecoration: 'underline', 
-};
 
 
 const AdminDashboard = () => {
+    const navigate = useNavigate();
 
-  
+  useEffect(() => {
+    const userType = sessionStorage.getItem('userType');
+    if(userType !== 'admin'){
+      navigate('/redirect'); 
+     }
+    }, [navigate]);
+
   return (
-    <div className="container mt-5 "> 
+    <Container fluid className="d-flex align-items-center justify-content-center" style={{ background: 'lightblue', minHeight: '100vh' , width: '210vh' }}>
+     
+      <div className="text-center">
+
       <h1>Admin Dashboard</h1>
-      <Link to="/" style={linkStyle}>BACK TO HOMEPAGE</Link>
+      <Link to="/" className="btn btn-primary">BACK TO HOMEPAGE</Link>
       <br />
       <br />
-      <Link to="../viewCustomers" className="btn btn-danger">View Customers</Link>
+      <Link to="../viewCustomers" className="btn btn-primary">View Customers</Link>
       <br />
       <br />
-      <Link to="../Createcustomer" className="btn btn-danger">Create Customers</Link>
+      <Link to="../Createcustomer" className="btn btn-primary">Create Customers</Link>
       <br />
       <br />
-      <Link to="../createnewstaff" className="btn btn-danger">Create Staff</Link>
+      <Link to="../createnewstaff" className="btn btn-primary">Create Staff</Link>
       <br />
       <br />
-      <Link to="../viewallstaff" className="btn btn-danger">View All Staff</Link>
+      <Link to="../createnewadmin" className="btn btn-primary">Create Admin</Link>
       <br />
       <br />
-      
-    </div>
+    
+      <Link to="../createtransaction" className="btn btn-primary">Transfers</Link>
+      <br />
+      <br />
+      </div>
+    </Container>
   );
 };
 
